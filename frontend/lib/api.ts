@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
 export function getApiBaseUrl(): string {
   if (!API_URL) {
     throw new Error(
-      "NEXT_PUBLIC_API_URL is not configured. Copy .env.example to .env.local and set the API URL."
+      "آدرس API تنظیم نشده است. فایل .env.example را به .env.local کپی کنید و NEXT_PUBLIC_API_URL را مقداردهی کنید."
     );
   }
   return API_URL;
@@ -28,7 +28,7 @@ export async function predictHcv(
     });
   } catch {
     throw new Error(
-      "Could not reach the prediction API. Make sure the backend is running and NEXT_PUBLIC_API_URL is correct."
+      "ارتباط با سرویس پیش‌بینی برقرار نشد. مطمئن شوید بک‌اند در حال اجراست و NEXT_PUBLIC_API_URL درست تنظیم شده است."
     );
   }
 
@@ -64,7 +64,7 @@ export async function predictHcv(
       }
     }
 
-    throw new Error(`Prediction request failed (${response.status}).`);
+    throw new Error(`درخواست پیش‌بینی ناموفق بود (${response.status}).`);
   }
 
   if (
@@ -73,7 +73,7 @@ export async function predictHcv(
     !("predicted_class" in data) ||
     !("predicted_label" in data)
   ) {
-    throw new Error("The API returned an unexpected response format.");
+    throw new Error("پاسخ دریافتی از API در قالب مورد انتظار نیست.");
   }
 
   return data as PredictResponse;

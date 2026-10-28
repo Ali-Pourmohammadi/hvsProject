@@ -33,17 +33,17 @@ export const FIELD_META: Record<
   (typeof NUMERIC_FIELDS)[number],
   { label: string; hint: string; min?: number; max?: number }
 > = {
-  Age: { label: "Age", hint: "Years", min: 0, max: 120 },
-  ALB: { label: "ALB", hint: "Albumin" },
-  ALP: { label: "ALP", hint: "Alkaline phosphatase" },
-  ALT: { label: "ALT", hint: "Alanine aminotransferase" },
-  AST: { label: "AST", hint: "Aspartate aminotransferase" },
-  BIL: { label: "BIL", hint: "Bilirubin" },
-  CHE: { label: "CHE", hint: "Cholinesterase" },
-  CHOL: { label: "CHOL", hint: "Cholesterol" },
-  CREA: { label: "CREA", hint: "Creatinine" },
-  GGT: { label: "GGT", hint: "Gamma-glutamyl transferase" },
-  PROT: { label: "PROT", hint: "Protein" },
+  Age: { label: "سن", hint: "سال", min: 0, max: 120 },
+  ALB: { label: "آلبومین", hint: "ALB" },
+  ALP: { label: "آلکالین فسفاتاز", hint: "ALP" },
+  ALT: { label: "آلانین آمینوترانسفراز", hint: "ALT" },
+  AST: { label: "آسپارتات آمینوترانسفراز", hint: "AST" },
+  BIL: { label: "بیلی‌روبین", hint: "BIL" },
+  CHE: { label: "کولین‌استراز", hint: "CHE" },
+  CHOL: { label: "کلسترول", hint: "CHOL" },
+  CREA: { label: "کراتینین", hint: "CREA" },
+  GGT: { label: "گاما گلوتامیل ترانسفراز", hint: "GGT" },
+  PROT: { label: "پروتئین کل", hint: "PROT" },
 };
 
 function parseOptionalNumber(raw: string): number | null | "invalid" {
@@ -85,16 +85,16 @@ export function validateForm(values: FormValues): {
     const meta = FIELD_META[field];
 
     if (parsed === "invalid") {
-      errors[field] = `${meta.label} must be a valid number.`;
+      errors[field] = `${meta.label} باید عدد معتبر باشد.`;
       continue;
     }
 
     if (parsed !== null) {
       hasAnyLabValue = true;
       if (meta.min !== undefined && parsed < meta.min) {
-        errors[field] = `${meta.label} must be at least ${meta.min}.`;
+        errors[field] = `${meta.label} باید حداقل ${meta.min} باشد.`;
       } else if (meta.max !== undefined && parsed > meta.max) {
-        errors[field] = `${meta.label} must be at most ${meta.max}.`;
+        errors[field] = `${meta.label} باید حداکثر ${meta.max} باشد.`;
       } else {
         payload[field] = parsed;
       }
@@ -102,7 +102,7 @@ export function validateForm(values: FormValues): {
   }
 
   if (!values.Sex) {
-    errors.Sex = "Please select sex.";
+    errors.Sex = "لطفاً جنسیت را انتخاب کنید.";
   } else {
     payload.Sex = values.Sex;
   }
@@ -110,7 +110,7 @@ export function validateForm(values: FormValues): {
   if (!hasAnyLabValue) {
     errors.Age =
       errors.Age ??
-      "Enter at least one laboratory value. Missing values are filled by the imputer.";
+      "حداقل یک مقدار آزمایشگاهی وارد کنید. مقادیر خالی توسط مدل تکمیل می‌شوند.";
   }
 
   const hasErrors = Object.keys(errors).length > 0;

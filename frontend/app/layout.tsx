@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-});
-
-const body = Manrope({
-  subsets: ["latin"],
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic", "latin"],
   variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "HCV Laboratory Analysis",
+  title: "سامانه تحلیل آزمایش‌های خونی برای ارزیابی اولیه هپاتیت C",
   description:
-    "Educational Machine Learning web app for predicting HCV-related laboratory groups from UCI HCV Data features.",
+    "سامانه آموزشی مبتنی بر یادگیری ماشین برای ارزیابی اولیه وضعیت فرد از نظر احتمال ابتلا به هپاتیت C با استفاده از شاخص‌های آزمایش خون.",
 };
 
 export default function RootLayout({
@@ -24,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${display.variable} ${body.variable} antialiased`}>
+    <html lang="fa" dir="rtl">
+      <body className={`${vazirmatn.variable} ${vazirmatn.className} antialiased`}>
         {children}
       </body>
     </html>

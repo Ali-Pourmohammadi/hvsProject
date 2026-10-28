@@ -45,7 +45,7 @@ export function PredictionForm() {
       setApiError(
         error instanceof Error
           ? error.message
-          : "An unexpected error occurred while requesting the prediction."
+          : "خطای غیرمنتظره‌ای هنگام درخواست پیش‌بینی رخ داد."
       );
     } finally {
       setLoading(false);
@@ -69,15 +69,15 @@ export function PredictionForm() {
         aria-describedby="form-help"
       >
         <div className="form-heading">
-          <h2>Laboratory inputs</h2>
+          <h2>ورودی‌های آزمایشگاهی</h2>
           <p id="form-help">
-            Enter available lab markers. Empty numeric fields are handled by the
-            trained imputer. Sex is required.
+            شاخص‌های آزمایش خون و مشخصات فرد را وارد کنید. فیلدهای عددی خالی
+            توسط مدل تکمیل می‌شوند. انتخاب جنسیت الزامی است.
           </p>
         </div>
 
         <fieldset className="sex-fieldset">
-          <legend>Sex</legend>
+          <legend>جنسیت</legend>
           <div className="sex-options" role="radiogroup" aria-required="true">
             <label className={`sex-option ${values.Sex === "m" ? "active" : ""}`}>
               <input
@@ -87,7 +87,7 @@ export function PredictionForm() {
                 checked={values.Sex === "m"}
                 onChange={() => updateField("Sex", "m")}
               />
-              Male (m → 0)
+              مرد
             </label>
             <label className={`sex-option ${values.Sex === "f" ? "active" : ""}`}>
               <input
@@ -97,7 +97,7 @@ export function PredictionForm() {
                 checked={values.Sex === "f"}
                 onChange={() => updateField("Sex", "f")}
               />
-              Female (f → 1)
+              زن
             </label>
           </div>
           {errors.Sex ? (
@@ -131,7 +131,7 @@ export function PredictionForm() {
                     aria-describedby={
                       hasError ? `${hintId} ${errorId}` : hintId
                     }
-                    placeholder="Optional"
+                    placeholder="اختیاری"
                   />
                   <span id={hintId} className="field-hint">
                     {meta.hint}
@@ -149,7 +149,7 @@ export function PredictionForm() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? "Predicting…" : "Predict"}
+            {loading ? "در حال پیش‌بینی…" : "پیش‌بینی نتیجه"}
           </button>
           <button
             type="button"
@@ -157,13 +157,13 @@ export function PredictionForm() {
             onClick={handleReset}
             disabled={loading}
           >
-            Reset
+            پاک‌کردن فرم
           </button>
         </div>
 
         {loading ? (
           <p className="status-line" role="status" aria-live="polite">
-            Sending laboratory features to the model…
+            در حال ارسال اطلاعات آزمایشگاهی به مدل…
           </p>
         ) : null}
 

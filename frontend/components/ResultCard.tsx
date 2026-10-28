@@ -1,3 +1,4 @@
+import { getClassDisplayLabel, MEDICAL_DISCLAIMER } from "@/lib/labels";
 import type { PredictResponse } from "@/lib/types";
 
 interface ResultCardProps {
@@ -6,6 +7,10 @@ interface ResultCardProps {
 
 export function ResultCard({ result }: ResultCardProps) {
   const isDonor = result.predicted_class === 0;
+  const displayLabel = getClassDisplayLabel(
+    result.predicted_class,
+    result.predicted_label
+  );
 
   return (
     <section
@@ -14,13 +19,13 @@ export function ResultCard({ result }: ResultCardProps) {
       aria-atomic="true"
       tabIndex={-1}
     >
-      <p className="result-eyebrow">Prediction result</p>
-      <h2 className="result-title">{result.predicted_label}</h2>
+      <p className="result-eyebrow">نتیجه پیش‌بینی</p>
+      <h2 className="result-title">{displayLabel}</h2>
       <p className="result-meta">
-        Predicted class: <span>{result.predicted_class}</span>
+        کلاس پیش‌بینی‌شده: <span>{result.predicted_class}</span>
         {" · "}
         <span className={isDonor ? "tone-donor" : "tone-risk"}>
-          {isDonor ? "Blood Donor group" : "Non–Blood Donor group"}
+          {isDonor ? "گروه اهداکننده خون" : "گروه غیراهداکننده خون"}
         </span>
       </p>
 
@@ -28,11 +33,12 @@ export function ResultCard({ result }: ResultCardProps) {
         <ul className="probability-list">
           {result.probabilities.map((item) => {
             const percent = Math.round(item.probability * 1000) / 10;
+            const itemLabel = getClassDisplayLabel(item.class_id, item.label);
             return (
               <li key={item.class_id}>
                 <div className="probability-row">
-                  <span>{item.label}</span>
-                  <span>{percent}%</span>
+                  <span>{itemLabel}</span>
+                  <span>{percent}٪</span>
                 </div>
                 <div
                   className="probability-track"
@@ -40,7 +46,7 @@ export function ResultCard({ result }: ResultCardProps) {
                   aria-valuemin={0}
                   aria-valuemax={100}
                   aria-valuenow={percent}
-                  aria-label={`${item.label} probability`}
+                  aria-label={`احتمال ${itemLabel}`}
                 >
                   <span
                     className="probability-fill"
@@ -53,7 +59,7 @@ export function ResultCard({ result }: ResultCardProps) {
         </ul>
       ) : null}
 
-      <p className="result-disclaimer">{result.disclaimer}</p>
+      <p className="result-disclaimer">{MEDICAL_DISCLAIMER}</p>
     </section>
   );
 }
