@@ -16,9 +16,7 @@ backend/dist/
 backend/build/
 
 # Model artifacts (do not commit trained models)
-**/*.pkl
 **/*.joblib
-backend/models/*.pkl
 backend/models/*.joblib
 !backend/models/.gitkeep
 !backend/models/README.md
