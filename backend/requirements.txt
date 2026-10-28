@@ -1,0 +1,9 @@
+# Use Python 3.11 or 3.12. Model artifacts were saved with scikit-learn 1.6.1.
+fastapi==0.115.6
+uvicorn==0.34.0
+pydantic==2.10.4
+python-dotenv==1.0.1
+joblib==1.4.2
+numpy==2.2.6
+scikit-learn==1.6.1
+pandas==2.2.3
